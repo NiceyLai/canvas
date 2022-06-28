@@ -9,21 +9,32 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="p"></div>
+    <canvas id="canvas"></canvas>
     <script>
-      let p = document.querySelector(".p");
-      p.onclick = function (e) {
-        let div = document.createElement("div");
-        div.style.position = "absolute";
-        div.style.top = e.clientY - 3 + "px";
-        div.style.left = e.clientX - 3 + "px";
-        div.style.width = "6px";
-        div.style.height = "6px";
-        div.style.border = "1px solid black";
-        div.style.background = "black";
-        div.style.borderRadius = "50%";
-        p.appendChild(div);
-      };
+      let canvas = document.getElementById("canvas");
+      canvas.width=document.documentElement.clientWidth;
+      canvas.height=document.documentElement.clientHeight;
+      let ctx = canvas.getContext("2d");
+      let painting=false;
+      ctx.fillStyle = "black";
+      ctx.strokeStyle = "none";
+
+      canvas.onmousedown = function(){
+        painting=true;
+      }
+
+      canvas.onmousemove=function(e) {
+        if(painting===true){
+      ctx.beginPath();
+ctx.arc(e.clientX, e.clientY, 6, 0, 2 * Math.PI);
+ctx.stroke();
+ctx.fill();
+        }else{
+        }
+      }
+      canvas.onmouseup=function() {
+        painting=false;
+      }
     </script>
   </body>
 </html>
